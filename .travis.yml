@@ -15,5 +15,3 @@ script:
  - grep johno/pixyll    _site/css/pixyll.css
  - grep 404             _site/404.html
  - grep pixyll.com/sitemap.xml _site/robots.txt
-- name: Setup Ruby, JRuby and TruffleRuby
-  uses: ruby/setup-ruby@v1.144.2
