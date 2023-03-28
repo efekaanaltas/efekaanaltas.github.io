@@ -1,35 +1,23 @@
-
-name: Build
+name: Ruby
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-    - name: Set up Ruby 2.7
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7.x
-    - name: Bundle install
-      run: |
-        bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3
-    - name: Build with Jekyll
-      run: |
-        bundle exec jekyll build- name: Setup Ruby, JRuby and TruffleRuby
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+        with:
+          ruby-version: '3.1'
+      - name: Install dependencies
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake
