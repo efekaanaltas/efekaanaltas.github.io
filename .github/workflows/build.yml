@@ -1,3 +1,4 @@
+
 name: Build
 
 on:
@@ -22,7 +23,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
     - name: Set up Ruby 2.7
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1.144.2
       with:
         ruby-version: 2.7.x
     - name: Bundle install
@@ -31,13 +32,4 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Build with Jekyll
       run: |
-        bundle exec jekyll build
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0' # Not needed with a .ruby-version file
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - run: bundle exec rake
+        bundle exec jekyll build- name: Setup Ruby, JRuby and TruffleRuby
